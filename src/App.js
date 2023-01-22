@@ -1,21 +1,28 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import About from "./pages/About";
+import AllProducts from "./pages/AllProducts";
+import ErrorPage from "./pages/ErrorPage";
+import Home from "./pages/Home";
+import Index from "./pages/Index";
+import Products from "./pages/Products";
+import Services from "./pages/Services";
 
 const router = createBrowserRouter([
-  { path: "/", element: <h1>Hello, Homepage</h1> },
-  { path: "/products", element: <h1>Hello, Products page</h1> },
-  { path: "/services", element: <h1>Hello, Service page</h1> },
-  { path: "/about", element: <h1>Hello, About page</h1> },
+  { path: "/", element: <Home/>,
+    errorElement : <ErrorPage />,
+    children : [
+      { index:true, element: <Index />},
+      { path: "products/", element: <AllProducts /> },
+      { path: "products/:idx", element: <Products /> },
+      { path: "services", element: <Services /> },
+      { path: "about", element: <About /> },
+    ],
+  },
 ]);
 
 function App() {
   return (
     <div className="App">
-      <nav>
-        <a href="/">Home</a>
-        <a href="/products">Products</a>
-        <a href="/services">Services</a>
-        <a href="/about">About</a>
-      </nav>
       <RouterProvider router={router} />
     </div>
   );
